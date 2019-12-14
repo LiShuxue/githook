@@ -57,7 +57,7 @@ const route = (app) => {
     res.end();
   });
 
-  app.get('/db-backup', (req, res) => {
+  app.post('/db-backup', (req, res) => {
     if (req.headers['x-github-event'] === 'push') {
       setJobListAndStartRun('DB-Backup', dbBackupAndUpload);
     }
