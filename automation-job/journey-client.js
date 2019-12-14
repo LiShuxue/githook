@@ -8,6 +8,7 @@ const journeyClientBuildAndDeploy = async () => {
     await myShell.exec('git pull');
     await myShell.exec('yarn');
     await myShell.exec('yarn build-prd');
+    await myShell.rm('-rf', 'dist/js/*.map');
     await myShell.rm('-rf', '/root/project/journey/journey-client/*');
     await myShell.cp('-r', 'dist/*', '/root/project/journey/journey-client/');
     await myShell.exec('nginx -s reload');
