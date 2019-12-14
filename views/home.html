@@ -1,0 +1,13 @@
+<div class="job-container">
+	{{#each jobList}}
+		<p><span>Job name: </span>{{name}}</p >
+		<p><span>Job status: </span>{{status}}</p>
+		<p><span>Start time: </span>{{startTime}}</p>
+		<p><span>End time: </span>{{endTime}}</p>
+		{{#if failReason}}
+			<p><span>Faile reason: </span>{{failReason}}</p>
+		{{/if}}
+		<hr />
+	{{/each}}
+</div>
+

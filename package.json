@@ -1,0 +1,17 @@
+{
+  "name": "githook",
+  "version": "1.0.0",
+  "description": "Git event trigger build and deploy",
+  "main": "index.js",
+  "author": "LiShuxue",
+  "license": "MIT",
+  "scripts": {
+    "start": "pm2 start pm2.config.json"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "hbs": "^4.0.6",
+    "log4js": "^6.1.0",
+    "shelljs": "^0.8.3"
+  }
+}
