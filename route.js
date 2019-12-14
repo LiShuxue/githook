@@ -1,6 +1,7 @@
 // 默认使用views文件下的 layout.html为布局文件。
 // views文件夹下的其他为视图文件，用于渲染
 // 视图文件会被渲染在某个布局文件里的{{{body}}}处。通过render方法
+const logger = require('./utils/logger');
 
 const journeyClientBuildAndDeploy = require('./automation-job/journey-client');
 const journeyServerBuildAndDeploy = require('./automation-job/journey-server');
@@ -37,6 +38,7 @@ const route = (app) => {
   });
 
   app.post('/journey-client', (req, res) => {
+    logger.info('============================Received Git event trigger Journey-Client job==============================');
     if (req.headers['x-github-event'] === 'push') {
       setJobListAndStartRun('Journey-client', journeyClientBuildAndDeploy);
     }
@@ -44,6 +46,7 @@ const route = (app) => {
   });
 
   app.post('/journey-server', (req, res) => {
+    logger.info('============================Received Git event trigger Journey-Server job==============================');
     if (req.headers['x-github-event'] === 'push') {
       setJobListAndStartRun('Journey-server', journeyServerBuildAndDeploy);
     }
@@ -51,6 +54,7 @@ const route = (app) => {
   });
 
   app.post('/vue-admin', (req, res) => {
+    logger.info('============================Received Git event trigger Vue-Admin job==============================');
     if (req.headers['x-github-event'] === 'push') {
       setJobListAndStartRun('Vue-admin', vueAdminBuildAndDeploy);
     }
@@ -58,6 +62,7 @@ const route = (app) => {
   });
 
   app.post('/db-backup', (req, res) => {
+    logger.info('============================Received Git event trigger DB-Backup job==============================');
     if (req.headers['x-github-event'] === 'push') {
       setJobListAndStartRun('DB-Backup', dbBackupAndUpload);
     }

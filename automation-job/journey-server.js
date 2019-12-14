@@ -1,19 +1,19 @@
 const myShell = require('./myShell');
+const logger = require('../utils/logger');
 
 const journeyServerBuildAndDeploy = async () => {
   try {
-    console.log('Journey-server automation job start...');
+    logger.info('Journey-server automation job start...');
     await myShell.cd('/root/project/journey/journey-server');
     await myShell.exec('git checkout .');
     await myShell.exec('git pull');
     await myShell.exec('yarn');
     await myShell.exec('yarn re-start');
     await myShell.exec('nginx -s reload');
-    console.log('Journey-server automation job successful.');
+    logger.info('Journey-server automation job successful.');
     return Promise.resolve();
   } catch (err) {
-    console.log(err)
-    console.log('Journey-server automation job failed.');
+    logger.error('Journey-server automation job failed.');
     return Promise.reject(err);
   }
 }
