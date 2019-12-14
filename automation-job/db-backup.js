@@ -5,10 +5,10 @@ const dbBackupAndUpload = async () => {
     console.log('DB-Backup automation job start...');
     await myShell.cd('/root/db-backup');
     // 数据库备份
-    await myShell.exec('mongodump -h localhost:27017 -d journey -o /root/db-backup');
+    await myShell.exec('mongodump -h localhost:27017 -d journey -o /root/db-backup -u journey -p journey');
 
     // 数据库恢复
-    // await myShell.exec('mongorestore -h localhost:27017 -d journey /root/db-backup/journey');
+    // await myShell.exec('mongorestore -h localhost:27017 -d journey /root/db-backup/journey -u journey -p journey');
 
     // 压缩数据库备份文件
     await myShell.exec('zip -r journey-`date +%Y-%m-%d-%H-%M-%S`.zip journey');
