@@ -6,9 +6,11 @@
   "author": "LiShuxue",
   "license": "MIT",
   "scripts": {
-    "start": "pm2 start pm2.config.json"
+    "dev": "cross-env NODE_ENV=development node index.js",
+    "start": "pm2 start pm2.config.json --env prd"
   },
   "dependencies": {
+    "cross-env": "^6.0.3",
     "express": "^4.17.1",
     "hbs": "^4.0.6",
     "log4js": "^6.1.0",

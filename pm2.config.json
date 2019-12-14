@@ -1,6 +1,12 @@
 {
   "apps": [{
     "name": "automation",
-    "script": "./index.js"
+    "script": "./index.js",
+    "env_dev": {
+      "NODE_ENV": "development"
+    },
+    "env_prd": {
+      "NODE_ENV": "production"
+    }
   }]
 }
