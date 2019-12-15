@@ -68,6 +68,39 @@ const route = (app) => {
     }
     res.end();
   });
+
+  /*********** Bellow code is for testing purpose ************/
+  if (process.env.LOG_ENV === 'development') {
+    
+    const testingBuildPortal = () => {
+      return new Promise((resolve, reject) => {
+        setTimeout(()=> {
+          resolve();
+        }, 1000 * 10);
+      })
+    }
+
+    app.get('/journey-client', (req, res) => {
+      setJobListAndStartRun('Journey-client', testingBuildPortal);
+      res.end();
+    });
+  
+    app.get('/journey-server', (req, res) => {
+      setJobListAndStartRun('Journey-server', testingBuildPortal);
+      res.end();
+    });
+  
+    app.get('/vue-admin', (req, res) => {
+      setJobListAndStartRun('Vue-admin', testingBuildPortal);
+      res.end();
+    });
+  
+    app.get('/db-backup', (req, res) => {
+      setJobListAndStartRun('DB-Backup', testingBuildPortal);
+      res.end();
+    });
+  }
+  /*********** Upon code is for testing purpose ************/
 }
 
 module.exports = route;
