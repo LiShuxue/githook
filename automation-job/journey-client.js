@@ -9,14 +9,14 @@ const journeyClientBuildAndDeploy = async () => {
     await myShell.exec('mongod --shutdown');
     await myShell.exec('pm2 stop journey-server');
 
-    await myShell.cd('/root/.jenkins/workspace/journey-client');
+    await myShell.cd('/root/project/journey/journey-client');
     // await myShell.exec('git checkout .');
     await myShell.exec('git pull');
     await myShell.exec('yarn');
     await myShell.exec('yarn build-prd');
     await myShell.rm('-rf', 'dist/js/*.map');
-    await myShell.rm('-rf', '/root/project/journey/journey-client/*');
-    await myShell.cp('-r', 'dist/*', '/root/project/journey/journey-client/');
+    // await myShell.rm('-rf', '/root/project/journey/journey-client/*');
+    // await myShell.cp('-r', 'dist/*', '/root/project/journey/journey-client/');
 
     // 再重启刚才关闭的服务。后台服务，MongoDB服务
     await myShell.exec('mongod -f /data/db/mongodb.cnf');

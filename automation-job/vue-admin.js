@@ -4,13 +4,13 @@ const logger = require('../utils/logger');
 const vueAdminBuildAndDeploy = async () => {
   try {
     logger.info('Vue-admin automation job start...');
-    await myShell.cd('/root/.jenkins/workspace/vue-admin');
+    await myShell.cd('/root/project/vue-admin');
     // await myShell.exec('git checkout .');
     await myShell.exec('git pull');
     await myShell.exec('yarn');
     await myShell.exec('yarn build-prod');
-    await myShell.rm('-rf', '/root/project/vue-admin/*');
-    await myShell.cp('-r', 'dist/*', '/root/project/vue-admin/');
+    // await myShell.rm('-rf', '/root/project/vue-admin/*');
+    // await myShell.cp('-r', 'dist/*', '/root/project/vue-admin/');
     await myShell.exec('nginx -s reload');
     logger.info('Vue-admin automation job successful.');
     return Promise.resolve();
