@@ -20,13 +20,4 @@ const vueAdminBuildAndDeploy = async () => {
   }
 }
 
-// // testing
-// const vueAdminBuildAndDeploy = () => {
-//   return new Promise((resolve, reject) => {
-//     setTimeout(()=> {
-//       resolve('faildasdf;ajsdf;jads;fja;sdjf;ajsdf;ja;sdjfa;djsf;ahsfuqyetqrqp ');
-//     }, 1000 * 10);
-//   })
-// }
-
 module.exports = vueAdminBuildAndDeploy;

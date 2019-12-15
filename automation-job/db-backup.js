@@ -23,13 +23,4 @@ const dbBackupAndUpload = async () => {
   }
 }
 
-// // testing
-// const dbBackupAndUpload = () => {
-//   return new Promise((resolve, reject) => {
-//     setTimeout(()=> {
-//       resolve();
-//     }, 1000 * 15);
-//   })
-// }
-
 module.exports = dbBackupAndUpload;

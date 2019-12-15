@@ -31,14 +31,5 @@ const journeyClientBuildAndDeploy = async () => {
   }
 }
 
-// // testing
-// const journeyClientBuildAndDeploy = () => {
-//   return new Promise((resolve, reject) => {
-//     setTimeout(()=> {
-//       resolve('faildasdf;ajsdf;jads;fja;sdjf;ajsdf;ja;sdjfa;djsf;ahsfuqyetqrqp ');
-//     }, 1000 * 10);
-//   })
-// }
-
 module.exports = journeyClientBuildAndDeploy;
 
