@@ -4,13 +4,13 @@ const logger = require('../utils/logger');
 const journeyClientBuildAndDeploy = async () => {
   try {
     logger.info('Journey-client automation job start...');
-
+    
     // 先关闭一些服务来腾出内存， 关闭后台服务，关闭MongoDB服务
     await myShell.exec('mongod --shutdown');
     await myShell.exec('pm2 stop journey-server');
 
     await myShell.cd('/root/project/journey/journey-client');
-    // await myShell.exec('git checkout .');
+    await myShell.exec('git checkout .');
     await myShell.exec('git pull');
     await myShell.exec('yarn');
     await myShell.exec('yarn build-prd');
