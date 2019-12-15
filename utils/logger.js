@@ -34,7 +34,7 @@ log4js.configure({
 
 let logger = log4js.getLogger('dev');
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.LOG_ENV === 'production') {
   logger = log4js.getLogger('prd');
 }
 

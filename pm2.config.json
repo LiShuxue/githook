@@ -3,10 +3,10 @@
     "name": "automation",
     "script": "./index.js",
     "env_dev": {
-      "NODE_ENV": "development"
+      "LOG_ENV": "development"
     },
     "env_prd": {
-      "NODE_ENV": "production"
+      "LOG_ENV": "production"
     }
   }]
 }
