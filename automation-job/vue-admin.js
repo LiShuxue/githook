@@ -5,7 +5,7 @@ const vueAdminBuildAndDeploy = async () => {
   try {
     logger.info('Vue-admin automation job start...');
     await myShell.cd('/root/.jenkins/workspace/vue-admin');
-    await myShell.exec('git checkout .');
+    // await myShell.exec('git checkout .');
     await myShell.exec('git pull');
     await myShell.exec('yarn');
     await myShell.exec('yarn build-prod');
