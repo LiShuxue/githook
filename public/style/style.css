@@ -2,10 +2,18 @@ body h1{
   text-align: center;
 }
 
-.job-list h2{
+.job-list .Successful{
   color: green;
 }
 
-.job-detail p span{
-  color: green;
+.job-list .Failed{
+  color: red;
+}
+
+.job-list .Pending{
+  color: 	#FFD700;
+}
+
+.job-list .Running{
+  color: blue;
 }

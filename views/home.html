@@ -2,7 +2,7 @@
 	{{#each allJob}}
 		<h2>{{name}}</h2>
 		{{#each jobList}}
-			<a href="/detail/{{name}}/{{buildNo}}"><p>{{buildNo}}. {{status}}</p></a>
+			<a href="/detail/{{name}}/{{buildNo}}" class="{{status}}"><p>{{buildNo}}. {{status}}</p></a>
 		{{/each}}
 		<hr />
 	{{/each}}
