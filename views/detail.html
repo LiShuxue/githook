@@ -1,0 +1,10 @@
+<div class="job-detail">
+  <p><span>Job name: </span>{{job.name}}</p>
+  <p><span>Build No: </span>{{job.buildNo}}</p>
+  <p><span>Job status: </span>{{job.status}}</p>
+  <p><span>Start time: </span>{{job.startTime}}</p>
+  <p><span>End time: </span>{{job.endTime}}</p>
+  {{#if job.failReason}}
+    <p><span>Faile reason: </span>{{job.failReason}}</p>
+  {{/if}}
+</div>

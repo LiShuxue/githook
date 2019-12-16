@@ -10,6 +10,22 @@ const route = (app) => {
       allJob: jobManager.allJob
     });
   });
+  
+  app.get('/detail/:name/:buildNo', (req, res) => {
+    let name = req.params.name;
+    let buildNo = req.params.buildNo;
+
+    let jobObject = jobManager.allJob.filter(value => {
+      return value.name === name;
+    })
+    let job = jobObject[0].jobList.filter(value => {
+      return value.buildNo === parseInt(buildNo)
+    })
+
+    res.render('detail', { 
+      job: job[0]
+    });
+  });
 
   app.post('/journey-client', (req, res) => {
     logger.info('============================Received Git event trigger Journey-Client job==============================');

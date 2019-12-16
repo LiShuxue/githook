@@ -17,7 +17,8 @@ if (process.env.LOG_ENV !== 'production') {
   const testingBuildPortal = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        reject();
+        resolve();
+        // reject('test');
       }, 1000 * 30);
     })
   }
