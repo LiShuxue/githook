@@ -2,8 +2,7 @@ body h1{
   text-align: center;
 }
 
-.job-container p span{
+.job-list h2{
   color: green;
-  font-size: 1.5em;
 }
 
