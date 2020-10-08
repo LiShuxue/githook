@@ -6,5 +6,6 @@
   <p><b>End time: </b>{{job.endTime}}</p>
   {{#if job.failReason}}
     <p><b>Faile reason: </b>{{job.failReason}}</p>
+    <a href="/rebuild/{{job.name}}/{{job.buildNo}}">Re-Build this job</a>
   {{/if}}
 </div>

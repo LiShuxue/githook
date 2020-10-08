@@ -27,6 +27,22 @@ const route = (app) => {
     });
   });
 
+  app.get('/rebuild/:name/:buildNo', (req, res) => {
+    let name = req.params.name;
+    let buildNo = req.params.buildNo;
+
+    let jobObject = jobManager.allJob.filter(value => {
+      return value.name === name;
+    })[0];
+    let job = jobObject.jobList.filter(value => {
+      return value.buildNo === parseInt(buildNo)
+    })[0];
+
+    job.status = 'Waiting re-running';
+    jobManager.loopCheckJobStatus(jobObject, job, true);
+    res.redirect('/')
+  });
+
   app.post('/journey-client', (req, res) => {
     logger.info('============================Received Git event trigger Journey-Client job==============================');
     if (req.headers['x-github-event'] === 'push') {

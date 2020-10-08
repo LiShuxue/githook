@@ -17,9 +17,9 @@ if (process.env.LOG_ENV !== 'production') {
   const testingBuildPortal = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve();
-        // reject('test');
-      }, 1000 * 30);
+        // resolve();
+        reject('error reason');
+      }, 1000 * 10);
     })
   }
   jobHandlerMapping = {
@@ -34,8 +34,7 @@ if (process.env.LOG_ENV !== 'production') {
 
 // let allJob = [{
 //   name: 'Journey-Client',
-//   currentJobNo: 3,
-//   currentJobDone: false,
+//   isRunning: false,
 //   jobList: [{
 //     name: 'Journey-Client',
 //     buildNo: '1',
@@ -64,8 +63,7 @@ if (process.env.LOG_ENV !== 'production') {
 //   }]
 // }, {
 //   name: 'Journey-Server',
-//   currentJobNo: 3,
-//   currentJobDone: false,
+//   isRunning: false,
 //   jobList: [{
 //     name: 'Journey-Server',
 //     buildNo: '1',
@@ -114,10 +112,8 @@ const createJob = (name) => {
   } else {
     jobObject = {
       name,
-      currentJobNo: null,
-      currentJobDone: null,
-      allJobDone: null,
-      jobList: []
+      isRunning: false,
+      jobList: [],
     }
     // 新建的初始化为0
     buildNo = 0;
@@ -138,81 +134,56 @@ const createJob = (name) => {
 
   // 放到当前job类别的list中
   jobObject.jobList.push(job);
-  jobObject.allJobDone = false;
 
   // 循环check当前的job是否执行
   loopCheckJobStatus(jobObject, job);
 }
 
-const excuteJob = (jobObject, job) => {
-  logger.info('Start excute the job, name: ' + job.name + ' buildNo: ' + job.buildNo);
+const excuteJob = (jobObject, job, isRebuild) => {
+  let msg = isRebuild ? 're-run' : 'excute'
+  logger.info('Start ' + msg + ' the job, name: ' + job.name + ' buildNo: ' + job.buildNo);
 
-  // 设置当前正在执行的job
-  jobObject.currentJobNo = job.buildNo;
-  jobObject.currentJobDone = false;
   job.startTime = new Date();
-  job.status = 'Running';
+  job.endTime = null;
+  job.failReason = null;
+  job.status = isRebuild ? 'Re-Running' : 'Running';
+  jobObject.isRunning = true;
 
   // 拿到当前job的执行方法
   let handler = jobHandlerMapping[jobObject.name];
 
   handler().then(() => {
-    logger.info(job.name + ' job, buildNo ' + job.buildNo + ' excute succcessful');
-
+    logger.info(job.name + ' job, buildNo ' + job.buildNo + ' ' + msg + ' succcessful');
     job.status = 'Successful';
     job.endTime = new Date();
-
-    jobObject.currentJobDone = true;
-    if (jobObject.jobList.length === job.buildNo + 1) {
-      jobObject.allJobDone = true;
-      logger.info('All ' + jobObject.name + ' job execute done');
-    }
+    jobObject.isRunning = false;
   }).catch(err => {
-    logger.info(job.name + ' job, buildNo ' + job.buildNo + ' excute failed');
+    logger.info(job.name + ' job, buildNo ' + job.buildNo + ' ' + msg + ' failed');
+    logger.error(err);
 
     job.status = 'Failed';
     job.endTime = new Date();
     job.failReason = err;
-
-    jobObject.currentJobDone = true;
-    if (jobObject.jobList.length === job.buildNo + 1) {
-      jobObject.allJobDone = true;
-      logger.info('All ' + jobObject.name + ' job execute done');
-    }
+    jobObject.isRunning = false;
   })
 }
 
-const loopCheckJobStatus = (jobObject, job) => {
-  // 如果所有的job已经完成
-  if (jobObject.allJobDone) {
-    return;
-  }
-
-  // 如果是第一个job，就立即执行
-  if (jobObject.currentJobNo === null && jobObject.currentJobDone === null) {
-    logger.info('Execute the first ' + jobObject.name + ' job, buildNo: ' + job.buildNo);
-    excuteJob(jobObject, job);
-    return;
-  }
-
-  // 如果上一个job已经完成，执行这个新的job
-  if (jobObject.currentJobNo === job.buildNo - 1 && jobObject.currentJobDone === true) {
-    logger.info('Execute the new ' + jobObject.name + 'job, buildNo: ' + job.buildNo);
-    excuteJob(jobObject, job);
-    return;
-  }
-
+const loopCheckJobStatus = (jobObject, job, isRebuild) => {
   // 如果有job正在进行中，就等待10秒再去check
-  if (jobObject.currentJobDone === false) {
+  if (jobObject.isRunning) {
     logger.info('There have a job is running, job ' + job.buildNo + ' is waiting.');
     setTimeout(() => {
-      loopCheckJobStatus(jobObject, job);
+      loopCheckJobStatus(jobObject, job, isRebuild);
     }, 10 * 1000)
     return;
   }
+
+  logger.info('Execute the ' + jobObject.name + ' job, buildNo: ' + job.buildNo);
+  excuteJob(jobObject, job, isRebuild);
 }
 
 module.exports = {
   allJob,
-  createJob
+  createJob,
+  loopCheckJobStatus
 }
