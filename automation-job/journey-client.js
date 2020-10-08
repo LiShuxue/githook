@@ -27,6 +27,15 @@ const journeyClientBuildAndDeploy = async () => {
     return Promise.resolve();
   } catch (err) {
     logger.error('Journey-client automation job failed.');
+    try {
+      // 失败后重启刚才关闭的服务。
+      await myShell.exec('mongod -f /data/db/mongodb.cnf');
+      await myShell.exec('pm2 start journey-server');
+      await myShell.exec('nginx -s reload'); 
+      logger.info('Re-start the service successful.');
+    } catch (err) {
+      logger.error('Re-start the service failed.');
+    }
     return Promise.reject(err);
   }
 }
