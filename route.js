@@ -3,6 +3,7 @@
 // 视图文件会被渲染在某个布局文件里的{{{body}}}处。通过render方法
 const logger = require('./utils/logger');
 const jobManager = require('./automation-job/job-manager');
+const fs = require('fs');
 
 const route = (app) => {
   app.get('/', (req, res) => {
@@ -41,6 +42,11 @@ const route = (app) => {
     job.status = 'Waiting re-running';
     jobManager.loopCheckJobStatus(jobObject, job, true);
     res.redirect('/')
+  });
+
+  app.get('/log', (req, res) => {
+    const data = fs.readFileSync('./output.log');
+    res.write(data.toString());
   });
 
   app.post('/journey-client', (req, res) => {
