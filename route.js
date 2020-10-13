@@ -45,7 +45,13 @@ const route = (app) => {
   });
 
   app.get('/log', (req, res) => {
-    const data = fs.readFileSync('./output.log');
+    let data = '';
+    if (process.env.LOG_ENV === 'production') {
+      data = fs.readFileSync('/root/githook/output.log');
+    } else {
+      data = fs.readFileSync('./output.log')
+    }
+    
     res.write(data.toString());
   });
 
