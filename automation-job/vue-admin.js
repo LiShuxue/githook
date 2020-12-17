@@ -7,7 +7,7 @@ const vueAdminBuildAndDeploy = async () => {
     await myShell.cd('/root/project/vue-admin');
     await myShell.exec('git checkout .');
     await myShell.exec('git pull');
-    await myShell.exec('yarn');
+    await myShell.exec('yarn --ignore-engines');
     await myShell.exec('yarn build-prod');
     // await myShell.rm('-rf', '/root/project/vue-admin/*');
     // await myShell.cp('-r', 'dist/*', '/root/project/vue-admin/');
