@@ -8,6 +8,7 @@ const journeyClientBuildAndDeploy = async () => {
     // 先关闭一些服务来腾出内存， 关闭后台服务，关闭MongoDB服务
     await myShell.exec('mongod --shutdown');
     await myShell.exec('pm2 stop journey-server');
+    await myShell.exec('nginx -s stop');
 
     await myShell.cd('/root/project/journey/journey-client');
     await myShell.exec('git checkout .');
@@ -21,8 +22,8 @@ const journeyClientBuildAndDeploy = async () => {
     // 再重启刚才关闭的服务。后台服务，MongoDB服务
     await myShell.exec('mongod -f /data/db/mongodb.cnf');
     await myShell.exec('pm2 start journey-server');
+    await myShell.exec('nginx -c /etc/nginx/nginx.conf');
 
-    await myShell.exec('nginx -s reload');
     logger.info('Journey-client automation job successful.');
     return Promise.resolve();
   } catch (err) {
@@ -31,7 +32,7 @@ const journeyClientBuildAndDeploy = async () => {
       // 失败后重启刚才关闭的服务。
       await myShell.exec('mongod -f /data/db/mongodb.cnf');
       await myShell.exec('pm2 start journey-server');
-      await myShell.exec('nginx -s reload'); 
+      await myShell.exec('nginx -c /etc/nginx/nginx.conf');
       logger.info('Re-start the service successful.');
     } catch (err) {
       logger.error('Re-start the service failed.');
