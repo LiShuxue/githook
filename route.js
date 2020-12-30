@@ -71,14 +71,6 @@ const route = (app) => {
     res.end();
   });
 
-  app.post('/vue-admin', (req, res) => {
-    logger.info('============================Received Git event trigger Vue-Admin job==============================');
-    if (req.headers['x-github-event'] === 'push') {
-      jobManager.createJob('Vue-Admin');
-    }
-    res.end();
-  });
-
   app.post('/db-backup', (req, res) => {
     logger.info('============================Received Git event trigger DB-Backup job==============================');
     if (req.headers['x-github-event'] === 'push') {
@@ -96,11 +88,6 @@ const route = (app) => {
   
     app.get('/journey-server', (req, res) => {
       jobManager.createJob('Journey-Server');
-      res.end();
-    });
-  
-    app.get('/vue-admin', (req, res) => {
-      jobManager.createJob('Vue-Admin');
       res.end();
     });
   

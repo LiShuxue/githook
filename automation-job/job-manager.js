@@ -2,13 +2,11 @@ const logger = require('../utils/logger');
 
 const journeyClientBuildAndDeploy = require('./journey-client');
 const journeyServerBuildAndDeploy = require('./journey-server');
-const vueAdminBuildAndDeploy = require('./vue-admin');
 const dbBackupAndUpload = require('./db-backup');
 
 let jobHandlerMapping = {
   'Journey-Client': journeyClientBuildAndDeploy,
   'Journey-Server': journeyServerBuildAndDeploy,
-  'Vue-Admin': vueAdminBuildAndDeploy,
   'DB-Backup': dbBackupAndUpload
 }
 
@@ -25,7 +23,6 @@ if (process.env.LOG_ENV !== 'production') {
   jobHandlerMapping = {
     'Journey-Client': testingBuildPortal,
     'Journey-Server': testingBuildPortal,
-    'Vue-Admin': testingBuildPortal,
     'DB-Backup': testingBuildPortal
   }
 }
