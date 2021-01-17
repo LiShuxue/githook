@@ -6,7 +6,7 @@ const moment = require('moment');
 const dbBackupAndUpload = async () => {
   try {
     logger.info('DB-Backup automation job start...');
-    let dbBackupPath = '/root/db-backup/'
+    let dbBackupPath = '/root/db-backup/';
     await myShell.cd(dbBackupPath);
     // 数据库备份
     await myShell.exec('mongodump -h localhost:27017 -d journey -o /root/db-backup -u journey -p journey');
@@ -28,6 +28,6 @@ const dbBackupAndUpload = async () => {
     logger.error('DB-Backup automation job failed.');
     return Promise.reject(err);
   }
-}
+};
 
 module.exports = dbBackupAndUpload;

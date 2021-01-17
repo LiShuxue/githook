@@ -7,7 +7,7 @@ const journeyServerBuildAndDeploy = async () => {
     await myShell.cd('/root/project/journey/journey-server');
     await myShell.exec('git checkout .');
     await myShell.exec('git pull');
-    await myShell.exec('yarn');
+    await myShell.exec('yarn --ignore-engines');
     await myShell.exec('yarn re-start');
     await myShell.exec('nginx -s reload');
     logger.info('Journey-server automation job successful.');
@@ -16,6 +16,6 @@ const journeyServerBuildAndDeploy = async () => {
     logger.error('Journey-server automation job failed.');
     return Promise.reject(err);
   }
-}
+};
 
 module.exports = journeyServerBuildAndDeploy;

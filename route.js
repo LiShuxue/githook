@@ -7,24 +7,24 @@ const fs = require('fs');
 
 const route = (app) => {
   app.get('/', (req, res) => {
-    res.render('home', { 
-      allJob: jobManager.allJob
+    res.render('home', {
+      allJob: jobManager.allJob,
     });
   });
-  
+
   app.get('/detail/:name/:buildNo', (req, res) => {
     let name = req.params.name;
     let buildNo = req.params.buildNo;
 
-    let jobObject = jobManager.allJob.filter(value => {
+    let jobObject = jobManager.allJob.filter((value) => {
       return value.name === name;
-    })
-    let job = jobObject[0].jobList.filter(value => {
-      return value.buildNo === parseInt(buildNo)
-    })
+    });
+    let job = jobObject[0].jobList.filter((value) => {
+      return value.buildNo === parseInt(buildNo);
+    });
 
-    res.render('detail', { 
-      job: job[0]
+    res.render('detail', {
+      job: job[0],
     });
   });
 
@@ -32,16 +32,16 @@ const route = (app) => {
     let name = req.params.name;
     let buildNo = req.params.buildNo;
 
-    let jobObject = jobManager.allJob.filter(value => {
+    let jobObject = jobManager.allJob.filter((value) => {
       return value.name === name;
     })[0];
-    let job = jobObject.jobList.filter(value => {
-      return value.buildNo === parseInt(buildNo)
+    let job = jobObject.jobList.filter((value) => {
+      return value.buildNo === parseInt(buildNo);
     })[0];
 
     job.status = 'Waiting re-running';
     jobManager.loopCheckJobStatus(jobObject, job, true);
-    res.redirect('/')
+    res.redirect('/');
   });
 
   app.get('/log', (req, res) => {
@@ -49,14 +49,16 @@ const route = (app) => {
     if (process.env.LOG_ENV === 'production') {
       data = fs.readFileSync('/root/githook/output.log');
     } else {
-      data = fs.readFileSync('./output.log')
+      data = fs.readFileSync('./output.log');
     }
-    
+
     res.write(data.toString());
   });
 
   app.post('/journey-client', (req, res) => {
-    logger.info('============================Received Git event trigger Journey-Client job==============================');
+    logger.info(
+      '============================Received Git event trigger Journey-Client job=============================='
+    );
     if (req.headers['x-github-event'] === 'push') {
       jobManager.createJob('Journey-Client');
     }
@@ -64,7 +66,9 @@ const route = (app) => {
   });
 
   app.post('/journey-server', (req, res) => {
-    logger.info('============================Received Git event trigger Journey-Server job==============================');
+    logger.info(
+      '============================Received Git event trigger Journey-Server job=============================='
+    );
     if (req.headers['x-github-event'] === 'push') {
       jobManager.createJob('Journey-Server');
     }
@@ -85,18 +89,18 @@ const route = (app) => {
       jobManager.createJob('Journey-Client');
       res.end();
     });
-  
+
     app.get('/journey-server', (req, res) => {
       jobManager.createJob('Journey-Server');
       res.end();
     });
-  
+
     app.get('/db-backup', (req, res) => {
       jobManager.createJob('DB-Backup');
       res.end();
     });
   }
   /*********** Upon code is for testing purpose ************/
-}
+};
 
 module.exports = route;

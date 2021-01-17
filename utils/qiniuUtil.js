@@ -17,11 +17,11 @@ config.zone = qiniu.zone.Zone_z1;
 const uploadToken = () => {
   let options = {
     scope: bucket, // 存储空间的Bucket名字
-    expires: 1 * 60 // 上传凭证的过期时间，单位s
+    expires: 1 * 60, // 上传凭证的过期时间，单位s
   };
   let putPolicy = new qiniu.rs.PutPolicy(options);
   return putPolicy.uploadToken(mac);
-}
+};
 
 // 文件上传
 const fileUpload = (fileName, filePath) => {
@@ -44,12 +44,12 @@ const fileUpload = (fileName, filePath) => {
       logger.info('Upload successful.');
       resolve({
         respBody,
-        respInfo
-      })
+        respInfo,
+      });
     });
-  })
-}
+  });
+};
 
 module.exports = {
-  fileUpload
+  fileUpload,
 };
