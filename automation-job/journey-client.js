@@ -16,6 +16,8 @@ const journeyClientBuildAndDeploy = async () => {
     await myShell.exec('yarn --ignore-engines');
     await myShell.exec('yarn build-prd');
     await myShell.rm('-rf', 'dist/js/*.map');
+    // 更新nginx
+    await myShell.cp('-r', 'nginx/nginx.conf', '/etc/nginx/nginx.conf');
     // await myShell.rm('-rf', '/root/project/journey/journey-client/*');
     // await myShell.cp('-r', 'dist/*', '/root/project/journey/journey-client/');
 
