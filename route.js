@@ -61,8 +61,8 @@ const route = (app) => {
     );
     if (
       req.headers['x-github-event'] === 'push' &&
-      req.body.payload.pusher.name !== 'dependabot[bot]' &&
-      req.body.payload.ref.includes('master')
+      req.body.pusher.name !== 'dependabot[bot]' &&
+      req.body.ref.includes('master')
     ) {
       jobManager.createJob('Journey-Client');
     }
@@ -76,8 +76,8 @@ const route = (app) => {
     logger.info(req);
     if (
       req.headers['x-github-event'] === 'push' &&
-      req.body.payload.pusher.name !== 'dependabot[bot]' &&
-      req.body.payload.ref.includes('master')
+      req.body.pusher.name !== 'dependabot[bot]' &&
+      req.body.ref.includes('master')
     ) {
       jobManager.createJob('Journey-Server');
     }
@@ -88,8 +88,8 @@ const route = (app) => {
     logger.info('============================Received Git event trigger DB-Backup job==============================');
     if (
       req.headers['x-github-event'] === 'push' &&
-      req.body.payload.pusher.name !== 'dependabot[bot]' &&
-      req.body.payload.ref.includes('master')
+      req.body.pusher.name !== 'dependabot[bot]' &&
+      req.body.ref.includes('master')
     ) {
       jobManager.createJob('DB-Backup');
     }
