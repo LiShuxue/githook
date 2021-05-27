@@ -56,41 +56,40 @@ const route = (app) => {
   });
 
   app.post('/journey-client', (req, res) => {
-    logger.info(
-      '============================Received Git event trigger Journey-Client job=============================='
-    );
     if (
       req.headers['x-github-event'] === 'push' &&
       req.body.pusher.name !== 'dependabot[bot]' &&
       req.body.ref.includes('master')
     ) {
+      logger.info(
+        '============================Received Git event trigger Journey-Client job=============================='
+      );
       jobManager.createJob('Journey-Client');
     }
     res.end();
   });
 
   app.post('/journey-server', (req, res) => {
-    logger.info(
-      '============================Received Git event trigger Journey-Server job=============================='
-    );
-    logger.info(req);
     if (
       req.headers['x-github-event'] === 'push' &&
       req.body.pusher.name !== 'dependabot[bot]' &&
       req.body.ref.includes('master')
     ) {
+      logger.info(
+        '============================Received Git event trigger Journey-Server job=============================='
+      );
       jobManager.createJob('Journey-Server');
     }
     res.end();
   });
 
   app.post('/db-backup', (req, res) => {
-    logger.info('============================Received Git event trigger DB-Backup job==============================');
     if (
       req.headers['x-github-event'] === 'push' &&
       req.body.pusher.name !== 'dependabot[bot]' &&
       req.body.ref.includes('master')
     ) {
+      logger.info('============================Received Git event trigger DB-Backup job==============================');
       jobManager.createJob('DB-Backup');
     }
     res.end();
