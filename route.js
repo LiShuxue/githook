@@ -73,6 +73,7 @@ const route = (app) => {
     logger.info(
       '============================Received Git event trigger Journey-Server job=============================='
     );
+    logger.info(req);
     if (
       req.headers['x-github-event'] === 'push' &&
       req.body.payload.pusher.name !== 'dependabot[bot]' &&
