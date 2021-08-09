@@ -1,4 +1,4 @@
-name: code update & restart # action名称
+name: githook # action名称
 
 on: # 在push代码的时候运行此action
   push:
@@ -13,16 +13,10 @@ jobs:
     runs-on: ubuntu-latest # 运行环境，最新ubuntu
 
     steps:
-      - name: code update & restart # 更新代码和重启
+      - name: excute command # 更新代码和重启
         uses: garygrossgarten/github-action-ssh@master # 使用第三方action 远程执行命令
         with:
-          command: 
-            cd /root/githook
-            rm -rf output.log
-            git pull
-            yarn
-            pm2 stop automation
-            yarn start
+          command: cd /root/githook && rm -rf output.log && git pull && yarn && pm2 stop automation && yarn start
           username: root
           host: ${{ secrets.SERVER_IP }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
