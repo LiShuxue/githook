@@ -38,6 +38,7 @@ const journeyClientBuildAndDeploy = async () => {
       logger.info('Re-start the service successful.');
     } catch (err) {
       logger.error('Re-start the service failed.');
+      return Promise.reject(err);
     }
     return Promise.reject(err);
   }
