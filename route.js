@@ -84,7 +84,7 @@ const route = (app) => {
   });
 
   app.post('/db-backup', (req, res) => {
-    if (req.headers['X-Gitee-Event'] === 'Push Hook' && req.body.ref.includes('master')) {
+    if (req.headers['x-gitee-event'] === 'Push Hook' && req.body.ref.includes('master')) {
       logger.info('============================Received Git event trigger DB-Backup job==============================');
       jobManager.createJob('DB-Backup');
     }
