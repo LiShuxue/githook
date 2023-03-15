@@ -14,9 +14,9 @@ const config = new qiniu.conf.Config();
 config.zone = qiniu.zone.Zone_z1;
 
 // 获取上传凭证
-const uploadToken = () => {
+const uploadToken = (keyToOverwrite) => {
   let options = {
-    scope: bucket, // 存储空间的Bucket名字
+    scope: bucket + ':' + keyToOverwrite, // 存储空间的Bucket名字+需要覆盖上传的文件
     expires: 1 * 60, // 上传凭证的过期时间，单位s
   };
   let putPolicy = new qiniu.rs.PutPolicy(options);
@@ -33,7 +33,7 @@ const fileUpload = (qiniuPath, sourceFilePath) => {
   let putExtra = new qiniu.form_up.PutExtra();
 
   return new Promise((resolve, reject) => {
-    formUploader.putFile(uploadToken(), qiniuPath, sourceFilePath, putExtra, (respErr, respBody, respInfo) => {
+    formUploader.putFile(uploadToken(qiniuPath), qiniuPath, sourceFilePath, putExtra, (respErr, respBody, respInfo) => {
       if (respErr) {
         logger.error('Upload failed!');
         logger.error(respErr);
