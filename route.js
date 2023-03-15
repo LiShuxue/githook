@@ -99,9 +99,9 @@ const route = (app) => {
     const { project, fromPath } = req.body;
     if (project === 'blog-article' || 'resume') {
       logger.info(
-        `============================Trigger Upload job, ${project}, ${fromPath}==============================`
+        `============================Trigger UploadImage job, ${project}, ${fromPath}==============================`
       );
-      jobManager.createJob('Upload', {
+      jobManager.createJob('UploadImage', {
         project,
         fromPath,
       });

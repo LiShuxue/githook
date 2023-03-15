@@ -9,7 +9,7 @@ let jobHandlerMapping = {
   'Journey-Client': journeyClientBuildAndDeploy,
   'Journey-Server': journeyServerBuildAndDeploy,
   'DB-Backup': dbBackupAndUpload,
-  Upload: upload,
+  UploadImage: upload,
 };
 
 /*********** Bellow code is for testing purpose ************/
@@ -26,7 +26,7 @@ if (process.env.LOG_ENV !== 'production') {
     'Journey-Client': testingBuildPortal,
     'Journey-Server': testingBuildPortal,
     'DB-Backup': testingBuildPortal,
-    Upload: testingBuildPortal,
+    UploadImage: testingBuildPortal,
   };
 }
 /*********** Upon code is for testing purpose ************/
