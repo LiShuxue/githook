@@ -9,7 +9,7 @@ const upload = async ({ project, fromPath }) => {
     await myShell.cd(path);
     await myShell.exec('git pull');
     // 上传至七牛云
-    let filePath = `${path}${fromPath}`;
+    let filePath = `${path}/${fromPath}`;
     await qiniuUtil.fileUpload(fromPath, filePath);
     logger.info('Upload automation job successful.');
     return Promise.resolve();

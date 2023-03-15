@@ -3,7 +3,7 @@ const logger = require('../utils/logger');
 const journeyClientBuildAndDeploy = require('./journey-client');
 const journeyServerBuildAndDeploy = require('./journey-server');
 const dbBackupAndUpload = require('./db-backup');
-const upload = require('upload');
+const upload = require('./upload');
 
 let jobHandlerMapping = {
   'Journey-Client': journeyClientBuildAndDeploy,
