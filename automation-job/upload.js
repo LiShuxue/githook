@@ -9,8 +9,9 @@ const upload = async ({ project, fromPath }) => {
     await myShell.cd(path);
     await myShell.exec('git pull');
     // 上传至七牛云
-    let filePath = `${path}/${fromPath}`;
-    await qiniuUtil.fileUpload(fromPath, filePath);
+    const qiniuPath = project === 'blog-article' ? `/blog/image/${fromPath}` : `/resume/${fromPath}`;
+    const sourceFilePath = `${path}/${fromPath}`;
+    await qiniuUtil.fileUpload(qiniuPath, sourceFilePath);
     logger.info('Upload automation job successful.');
     return Promise.resolve();
   } catch (err) {

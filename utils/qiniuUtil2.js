@@ -24,17 +24,16 @@ const uploadToken = () => {
 };
 
 // 文件上传
-const fileUpload = (fileName, filePath) => {
-  logger.info('Start upload the db to Qiniuyun...');
-  logger.info('fileName: ' + fileName);
-  logger.info('filePath: ' + filePath);
+const fileUpload = (qiniuPath, sourceFilePath) => {
+  logger.info('Start upload the image to Qiniuyun...');
+  logger.info('qiniuPath: ' + qiniuPath);
+  logger.info('sourceFilePath: ' + sourceFilePath);
 
-  let key = 'blog/image/' + fileName;
   let formUploader = new qiniu.form_up.FormUploader(config);
   let putExtra = new qiniu.form_up.PutExtra();
 
   return new Promise((resolve, reject) => {
-    formUploader.putFile(uploadToken(), key, filePath, putExtra, (respErr, respBody, respInfo) => {
+    formUploader.putFile(uploadToken(), qiniuPath, sourceFilePath, putExtra, (respErr, respBody, respInfo) => {
       if (respErr) {
         logger.error('Upload failed!');
         logger.error(respErr);
