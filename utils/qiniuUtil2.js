@@ -32,8 +32,10 @@ const fileUpload = (qiniuPath, sourceFilePath) => {
   let formUploader = new qiniu.form_up.FormUploader(config);
   let putExtra = new qiniu.form_up.PutExtra();
 
+  const fileName = qiniuPath.split('/').pop();
+
   return new Promise((resolve, reject) => {
-    formUploader.putFile(uploadToken(qiniuPath), qiniuPath, sourceFilePath, putExtra, (respErr, respBody, respInfo) => {
+    formUploader.putFile(uploadToken(fileName), qiniuPath, sourceFilePath, putExtra, (respErr, respBody, respInfo) => {
       if (respErr) {
         logger.error('Upload failed!');
         logger.error(respErr);
