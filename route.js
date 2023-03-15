@@ -95,6 +95,20 @@ const route = (app) => {
     res.end();
   });
 
+  app.post('/upload', (req, res) => {
+    const { project, fromPath } = req.body;
+    if (project === 'blog-article' || 'resume') {
+      logger.info(
+        `============================Trigger Upload job, ${project}, ${fromPath}==============================`
+      );
+      jobManager.createJob('Upload', {
+        project,
+        fromPath,
+      });
+    }
+    res.end();
+  });
+
   /*********** Bellow code is for testing purpose ************/
   if (process.env.LOG_ENV !== 'production') {
     app.get('/journey-client', (req, res) => {

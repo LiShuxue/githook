@@ -3,11 +3,13 @@ const logger = require('../utils/logger');
 const journeyClientBuildAndDeploy = require('./journey-client');
 const journeyServerBuildAndDeploy = require('./journey-server');
 const dbBackupAndUpload = require('./db-backup');
+const upload = require('upload');
 
 let jobHandlerMapping = {
   'Journey-Client': journeyClientBuildAndDeploy,
   'Journey-Server': journeyServerBuildAndDeploy,
   'DB-Backup': dbBackupAndUpload,
+  Upload: upload,
 };
 
 /*********** Bellow code is for testing purpose ************/
@@ -24,6 +26,7 @@ if (process.env.LOG_ENV !== 'production') {
     'Journey-Client': testingBuildPortal,
     'Journey-Server': testingBuildPortal,
     'DB-Backup': testingBuildPortal,
+    Upload: testingBuildPortal,
   };
 }
 /*********** Upon code is for testing purpose ************/
@@ -89,7 +92,7 @@ if (process.env.LOG_ENV !== 'production') {
 // }]
 
 let allJob = [];
-const createJob = (name) => {
+const createJob = (name, args) => {
   logger.info('Start create job: ' + name);
 
   let buildNo;
@@ -124,6 +127,7 @@ const createJob = (name) => {
     startTime: null,
     endTime: null,
     failReason: null,
+    args,
   };
 
   logger.info('Job ' + job.name + ' created successful, buildNo: ' + job.buildNo);
@@ -148,7 +152,7 @@ const excuteJob = (jobObject, job, isRebuild) => {
   // 拿到当前job的执行方法
   let handler = jobHandlerMapping[jobObject.name];
 
-  handler()
+  handler(job.args)
     .then(() => {
       logger.info(job.name + ' job, buildNo ' + job.buildNo + ' ' + msg + ' succcessful');
       job.status = 'Successful';
