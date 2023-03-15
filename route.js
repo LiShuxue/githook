@@ -47,9 +47,9 @@ const route = (app) => {
   app.get('/log', (req, res) => {
     let data = '';
     if (process.env.LOG_ENV === 'production') {
-      data = fs.readFileSync('/root/githook/output.log');
+      data = fs.readFileSync('/root/githook/output.log', 'utf-8');
     } else {
-      data = fs.readFileSync('./output.log');
+      data = fs.readFileSync('./output.log', 'utf-8');
     }
 
     res.write(data.toString());
