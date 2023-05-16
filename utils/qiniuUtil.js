@@ -7,7 +7,7 @@ const logger = require('./logger');
 const accessKey = 'uHIW2IbsCKWoeaEW3x5tX6ajX3xL010MmmWar5vC';
 const secretKey = 'BJzBW7iaoRMh370HdlWSI4gzjL9tbkn-J19uzedC';
 const mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
-const bucket = 'journey-db';
+const bucket = 'journey';
 
 // 设置上传到的云空间的存储区域，华北
 const config = new qiniu.conf.Config();
