@@ -95,7 +95,7 @@ const route = (app) => {
     res.end();
   });
 
-  app.post('/upload', (req, res) => {
+  app.post('/adminupload', (req, res) => {
     const { project, fromPath } = req.body;
     if (project === 'blog-article' || 'resume') {
       logger.info(
