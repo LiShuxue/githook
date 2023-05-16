@@ -14,7 +14,7 @@ const journeyClientBuildAndDeploy = async () => {
     await myShell.exec('git checkout .');
     await myShell.exec('git pull');
     await myShell.exec('yarn --ignore-engines');
-    await myShell.exec('yarn build-prd');
+    await myShell.exec('yarn build');
     await myShell.rm('-rf', 'dist/js/*.map');
     // 更新nginx
     await myShell.cp('-r', 'nginx/nginx.conf', '/etc/nginx/nginx.conf');
