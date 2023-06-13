@@ -55,33 +55,33 @@ const route = (app) => {
     res.write(data);
   });
 
-  app.post('/journey-client', (req, res) => {
-    if (
-      req.headers['x-github-event'] === 'push' &&
-      req.body.pusher.name !== 'dependabot[bot]' &&
-      req.body.ref.includes('master')
-    ) {
-      logger.info(
-        '============================Received Git event trigger Journey-Client job=============================='
-      );
-      jobManager.createJob('Journey-Client');
-    }
-    res.end();
-  });
+  // app.post('/journey-client', (req, res) => {
+  //   if (
+  //     req.headers['x-github-event'] === 'push' &&
+  //     req.body.pusher.name !== 'dependabot[bot]' &&
+  //     req.body.ref.includes('master')
+  //   ) {
+  //     logger.info(
+  //       '============================Received Git event trigger Journey-Client job=============================='
+  //     );
+  //     jobManager.createJob('Journey-Client');
+  //   }
+  //   res.end();
+  // });
 
-  app.post('/journey-server', (req, res) => {
-    if (
-      req.headers['x-github-event'] === 'push' &&
-      req.body.pusher.name !== 'dependabot[bot]' &&
-      req.body.ref.includes('master')
-    ) {
-      logger.info(
-        '============================Received Git event trigger Journey-Server job=============================='
-      );
-      jobManager.createJob('Journey-Server');
-    }
-    res.end();
-  });
+  // app.post('/journey-server', (req, res) => {
+  //   if (
+  //     req.headers['x-github-event'] === 'push' &&
+  //     req.body.pusher.name !== 'dependabot[bot]' &&
+  //     req.body.ref.includes('master')
+  //   ) {
+  //     logger.info(
+  //       '============================Received Git event trigger Journey-Server job=============================='
+  //     );
+  //     jobManager.createJob('Journey-Server');
+  //   }
+  //   res.end();
+  // });
 
   app.post('/db-backup', (req, res) => {
     if (
@@ -111,15 +111,15 @@ const route = (app) => {
 
   /*********** Bellow code is for testing purpose ************/
   if (process.env.LOG_ENV !== 'production') {
-    app.get('/journey-client', (req, res) => {
-      jobManager.createJob('Journey-Client');
-      res.end();
-    });
+    // app.get('/journey-client', (req, res) => {
+    //   jobManager.createJob('Journey-Client');
+    //   res.end();
+    // });
 
-    app.get('/journey-server', (req, res) => {
-      jobManager.createJob('Journey-Server');
-      res.end();
-    });
+    // app.get('/journey-server', (req, res) => {
+    //   jobManager.createJob('Journey-Server');
+    //   res.end();
+    // });
 
     app.get('/db-backup', (req, res) => {
       jobManager.createJob('DB-Backup');

@@ -1,13 +1,13 @@
 const logger = require('../utils/logger');
 
-const journeyClientBuildAndDeploy = require('./journey-client');
-const journeyServerBuildAndDeploy = require('./journey-server');
+// const journeyClientBuildAndDeploy = require('./journey-client');
+// const journeyServerBuildAndDeploy = require('./journey-server');
 const dbBackupAndUpload = require('./db-backup');
 const upload = require('./upload');
 
 let jobHandlerMapping = {
-  'Journey-Client': journeyClientBuildAndDeploy,
-  'Journey-Server': journeyServerBuildAndDeploy,
+  // 'Journey-Client': journeyClientBuildAndDeploy,
+  // 'Journey-Server': journeyServerBuildAndDeploy,
   'DB-Backup': dbBackupAndUpload,
   UploadImage: upload,
 };
@@ -23,8 +23,8 @@ if (process.env.LOG_ENV !== 'production') {
     });
   };
   jobHandlerMapping = {
-    'Journey-Client': testingBuildPortal,
-    'Journey-Server': testingBuildPortal,
+    // 'Journey-Client': testingBuildPortal,
+    // 'Journey-Server': testingBuildPortal,
     'DB-Backup': testingBuildPortal,
     UploadImage: testingBuildPortal,
   };
