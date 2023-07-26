@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: excute command # 更新代码和重启
-        uses: garygrossgarten/github-action-ssh@master # 使用第三方action 远程执行命令
+        uses: garygrossgarten/github-action-ssh@release # 使用第三方action 远程执行命令
         with:
           command: cd /root/project/githook && rm -rf output.log && git pull && yarn && pm2 stop automation && yarn start
           host: ${{ secrets.SERVER_IP }}
