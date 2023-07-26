@@ -17,6 +17,6 @@ jobs:
         uses: garygrossgarten/github-action-ssh@master # 使用第三方action 远程执行命令
         with:
           command: cd /root/project/githook && rm -rf output.log && git pull && yarn && pm2 stop automation && yarn start
-          username: root
           host: ${{ secrets.SERVER_IP }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
